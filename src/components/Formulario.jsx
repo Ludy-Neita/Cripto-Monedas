@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import styled from "@emotion/styled";
 import useSelectMoneda from '../hooks/useSelectMoneda';
-import { monedas } from '../data/monedas' // este es el array.
+import { miVectorMonedas } from '../data/miVectorMonedas' // este es el array.
 import Error from './Error';
 
 const InputSubmit = styled.input`
@@ -24,13 +24,13 @@ const InputSubmit = styled.input`
     }
 `;
 
+// aquí me traigo el prop "setLasDosMonedas" definido en APP:   const [ miVectorMonedas, setLasDosMonedas ] = useState({})
+const Formulario = ({ setLasDosMonedas }) => {
 
-const Formulario = ({ setMonedas }) => {
-
-    const [moneda, SelectVariasMonedas] = useSelectMoneda('Elige tu moneda', monedas);
+    const [monedaDeMiVector, SelectMonedaDeMiVector] = useSelectMoneda('Elige tu moneda', miVectorMonedas);
 
     // esto viene desde "useSelectMoneda" de: const useSelectMoneda = (label, opciones) => 
-    // entonces el label es:'Elige tu moneda' y las opcione es: monedas es el array creado
+    // entonces el label es:'Elige tu moneda' y las opcione es: miVectorMonedas es el array creado
 
 
     const [criptos, setCriptos] = useState([]); // esto va primero, guarda lo de la API por eso es un []
@@ -82,15 +82,15 @@ const Formulario = ({ setMonedas }) => {
         //validar, si moneda y criptomoneda, estan vacios, entonces...
         // setError será true y devolver.
 
-        if ([moneda, criptomoneda].includes("")) {
+        if ([monedaDeMiVector, criptomoneda].includes("")) {
             setError(true); // si se vuelve en true retonrar implicito
             return;
         }
 
         setError(false) // setiar el error para limpiarlo cuando este ok.
 
-        setMonedas({
-            moneda,
+        setLasDosMonedas({
+            monedaDeMiVector,
             criptomoneda
         })
     }
@@ -102,7 +102,7 @@ const Formulario = ({ setMonedas }) => {
             {error && <Error> Todos los campos son obligatorios </Error>}
 
             <form onSubmit={handleSubmit}>
-                <SelectVariasMonedas /> {/* Esto esta dentro de la constante de est componente */}
+                <SelectMonedaDeMiVector /> {/* Esto esta dentro de la constante de est componente */}
                 <SelectCriptoMoneda /> {/* Esto esta dentro de la constante de est componente */}
                 <InputSubmit type='submit' value="cotizar" />
             </form>

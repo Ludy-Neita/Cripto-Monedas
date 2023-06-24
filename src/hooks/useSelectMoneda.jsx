@@ -22,7 +22,7 @@ const useSelectMoneda = (label, opciones) => { // props recibidas de Formulario,
 
     const [state, setState] = useState('');
 
-    const SelectVariasMonedas = () => (
+    const SelectMoneda= () => (
 
         //console.log("desde select monedas")
         <>
@@ -56,7 +56,7 @@ const useSelectMoneda = (label, opciones) => { // props recibidas de Formulario,
 
 
 
-    return [state, SelectVariasMonedas]
+    return [state, SelectMoneda]
 }
 
 export default useSelectMoneda
